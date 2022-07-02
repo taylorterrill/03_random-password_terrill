@@ -10,17 +10,50 @@
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-const lowerCaseLetter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-const upperCaseLetter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-const randomNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const specialChar = ["!","#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "^", "_", "`", "{", "|", "}", "~", "]"];
+// var lowerCaseLetter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+// var upperCaseLetter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+// var randomNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+// var  specialChar = ["!","#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "^", "_", "`", "{", "|", "}", "~", "]"];
+
+// variables to get lower case, upper case, numbers, and/or symbols
+var lowerCaseCode = arrayLowHigh(97, 122);
+var upperCaseCode = arrayLowHigh(65, 90);
+var numberCode = arrayLowHigh(48, 57);
+var symbolCode = arrayLowHigh(65, 90).concat(
+  arrayLowHigh(58, 64)
+).concat(
+  arrayLowHigh(91, 96)
+).concat(
+  arrayLowHigh(123, 126)
+)
+
+function arrayLowHigh(low, high) {
+  let array = []; 
+  for (let i = low; i <=high; i++) {
+    array.push(i)
+  }
+  return array;
+}
+
 
 
 //Generates and Displays Password
-function generatePassword() {
+//need to create variable for character amount based on what user selects in alert box (charAmount)
+function generatePassword(charAmount, includeUpper, includeNumber, includeSymbol) {
   console.log("button has been clicked");
+  var charCodes = lowerCaseCode;
+  // Need to Create these variables for when the user selects them in the alert box (includeUpper, includeNumber, includeSymbol,)
+  if (includeUpper) charCodes = charCodes.concat(upperCaseCode);
+  if (includeNumber) charCodes = charCodes.concat(numberCode);
+  if (includeSymbol) charCodes = charCodes.concat(symbolCode);
 
-  return "generated password";
+  var passwordChars = []
+  for (let index = 0; index < charAmount; index++) {
+     var charCode = charCodes[Math.floor(Math.random() * charCodes.length)];
+     passwordChars.push(String.fromCharCode(charCode));
+  }
+  
+  return passwordChars.join('');
 }
 
 
