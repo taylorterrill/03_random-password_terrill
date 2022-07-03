@@ -66,23 +66,52 @@ alert box for upper case - creates includeUpper var
 alert for number - creates includeNumber var
 alert for symbols - creates includeSymbol var
 generates password
-
-
 */
+
+// asks user for character length
 function askCharAmount() {
   var charAmount = prompt("Please chose a password length between 8-128 characters:")
     if (charAmount < 8 || charAmount > 128) {
       alert("Please chose a value between 8-128")
       askCharAmount()
     } else {
+      console.log (charAmount)
       return charAmount
     }
 }
 
 function writePassword() {
   var charAmount = askCharAmount();
+  
+  var upperPrompt = confirm("Would you like to include upper case letters? (click 'OK' for Yes and 'Cancel' for No)");
+    if (upperPrompt) {
+      var includeUpper = true
+      console.log ("includeUpper = " + includeUpper)
+    } else {
+      var includeUpper = false
+      console.log ("includeUpper = " + includeUpper)
+    }
+  
+  var numberPrompt = confirm("Would you like to include numbers? (click 'OK' for Yes and 'Cancel' for No)");
+    if (numberPrompt) {
+      var includeNumber = true
+      console.log ("includeNumber = " + includeNumber)
+    } else {
+      var includeNumber = false
+      console.log ("includeNumber = " + includeNumber)
+    }
 
-  var password = generatePassword();
+  var symbolPrompt = confirm("Would you like to include special characters? (click 'OK' for Yes and 'Cancel' for No)");
+    if (symbolPrompt) {
+      var includeSymbol = true
+      console.log ("includeSymbol = " + includeSymbol)
+    } else {
+      var includeSymbol = false
+      console.log ("includeNumber = " + includeSymbol)
+    }
+
+
+  var password = generatePassword(charAmount, includeUpper, includeNumber, includeSymbol);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
