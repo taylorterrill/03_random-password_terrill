@@ -37,6 +37,8 @@ function arrayLowHigh(low, high) {
 
 
 
+
+
 //Generates and Displays Password
 //need to create variable for character amount based on what user selects in alert box (charAmount)
 function generatePassword(charAmount, includeUpper, includeNumber, includeSymbol) {
@@ -49,16 +51,37 @@ function generatePassword(charAmount, includeUpper, includeNumber, includeSymbol
 
   var passwordChars = []
   for (let index = 0; index < charAmount; index++) {
-     var charCode = charCodes[Math.floor(Math.random() * charCodes.length)];
+     var charCode = charCodes[Math.floor(Math.random() * charCodes.length)]; //Math might not be working, looks like a var
      passwordChars.push(String.fromCharCode(charCode));
   }
-  
+
   return passwordChars.join('');
 }
 
 
 // Write password to the #password input
+/* on click, writePassword function is called. 
+alert box asks user for password length between 8-128 - if not in that range, alert user - charAmount variable
+alert box for upper case - creates includeUpper var
+alert for number - creates includeNumber var
+alert for symbols - creates includeSymbol var
+generates password
+
+
+*/
+function askCharAmount() {
+  var charAmount = prompt("Please chose a password length between 8-128 characters:")
+    if (charAmount < 8 || charAmount > 128) {
+      alert("Please chose a value between 8-128")
+      askCharAmount()
+    } else {
+      return charAmount
+    }
+}
+
 function writePassword() {
+  var charAmount = askCharAmount();
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
